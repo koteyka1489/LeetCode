@@ -1,6 +1,6 @@
 #include <vector>
 #include <algorithm>
-
+#include <unordered_map>
 
 /*
 Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
@@ -30,104 +30,19 @@ class Solution {
 public:
 	std::vector<int> twoSum(std::vector<int>& nums, int target)
 	{
-		std::vector<int> SortNums = nums;
-		std::sort(SortNums.begin(), SortNums.end());
-		std::vector<int> result{};
+		std::unordered_map<int, int> map;
 
-
-
-		int sum = SortNums.front();
-		if (SortNums.front() + SortNums.back() == target) // 0 + 100 = target
+		for (int i = 0; i < nums.size(); i++)
 		{
-			auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums.front());
-			auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums.back());
+			int Complement = target - nums[i];
 
-			return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
-		}
-		else
-		{
-			if (SortNums.front() + SortNums[SortNums.size() / 2] >= target) // 0 - 50
+			if (map.find(Complement) != map.end())
 			{
-				if (SortNums.front() + SortNums[SortNums.size() / 2] == target) // 0 + 50 = target
-				{
-					auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums.front());
-					auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 2]);
-					return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
-				}
-				else
-				{
-					if (SortNums.front() + SortNums[SortNums.size() / 4] >= target) // 0 - 25
-					{
-						if (SortNums.front() + SortNums[SortNums.size() / 4] == target) // 0 + 25 = target
-						{
-							auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums.front());
-							auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 4]);
-							return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
-						}
-						else
-						{
-							// handle 0 - 25
-						}
-					}
-					else // 26-50
-					{
-						if (SortNums[SortNums.size() / 4 + 1] + SortNums[SortNums.size() / 2] == target) // 26 + 50 = target
-						{
-							auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 4 + 1]);
-							auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 2]);
-							return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
-						}
-						else
-						{
-							// handle 26 - 50
-						}
-					}
-				}
+				return std::vector<int>{map[Complement], i};
 			}
-			else // 51 - 100
-			{
+			map[nums[i]] = i;
 
-				if (SortNums[SortNums.size() / 2 + 1] + SortNums[SortNums.size()] == target) // 51 + 100 = target
-				{
-					auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 2 + 1]);
-					auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size()]);
-					return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
-				}
-				else
-				{ 
-					if (SortNums[SortNums.size() / 2 + 1] + SortNums[SortNums.size() / 4 * 3] >= target) // 51 - 75
-					{
-						if (SortNums[SortNums.size() / 2 + 1] + SortNums[SortNums.size() / 4 * 3] == target) // 51 + 75 = target
-						{
-							auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 2 + 1]);
-							auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 4 * 3]);
-							return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
-						}
-						else
-						{
-							// handle 51 - 75
-						}
-						
-
-
-					}
-					else // 76 - 100
-					{
-						if (SortNums[SortNums.size() / 4 * 3 + 1] + SortNums.size() == target) // 76 + 100 = target
-						{
-							auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 4 * 3 + 1]);
-							auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums.size());
-							return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
-						}
-						else
-						{
-							// handle 76-100
-						}
-					}
-				}
-
-			}
 		}
-
+		return {};
 	}
 };
