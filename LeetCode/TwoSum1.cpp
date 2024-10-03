@@ -37,7 +37,7 @@ public:
 
 
 		int sum = SortNums.front();
-		if (SortNums.front() + SortNums.back() == target)
+		if (SortNums.front() + SortNums.back() == target) // 0 + 100 = target
 		{
 			auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums.front());
 			auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums.back());
@@ -46,9 +46,9 @@ public:
 		}
 		else
 		{
-			if (SortNums.front() + SortNums[SortNums.size() / 2] <= target) // 0 - 50
+			if (SortNums.front() + SortNums[SortNums.size() / 2] >= target) // 0 - 50
 			{
-				if (SortNums.front() + SortNums[SortNums.size() / 2] == target)
+				if (SortNums.front() + SortNums[SortNums.size() / 2] == target) // 0 + 50 = target
 				{
 					auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums.front());
 					auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 2]);
@@ -56,37 +56,78 @@ public:
 				}
 				else
 				{
-					if (SortNums.front() + SortNums[SortNums.size() / 4] <= target) // 0 - 25
+					if (SortNums.front() + SortNums[SortNums.size() / 4] >= target) // 0 - 25
 					{
-						if (SortNums.front() + SortNums[SortNums.size() / 4] == target)
+						if (SortNums.front() + SortNums[SortNums.size() / 4] == target) // 0 + 25 = target
 						{
 							auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums.front());
-							auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 2]);
+							auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 4]);
 							return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
+						}
+						else
+						{
+							// handle 0 - 25
 						}
 					}
 					else // 26-50
 					{
-
+						if (SortNums[SortNums.size() / 4 + 1] + SortNums[SortNums.size() / 2] == target) // 26 + 50 = target
+						{
+							auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 4 + 1]);
+							auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 2]);
+							return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
+						}
+						else
+						{
+							// handle 26 - 50
+						}
 					}
 				}
-
-
-
-
-
 			}
 			else // 51 - 100
 			{
 
+				if (SortNums[SortNums.size() / 2 + 1] + SortNums[SortNums.size()] == target) // 51 + 100 = target
+				{
+					auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 2 + 1]);
+					auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size()]);
+					return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
+				}
+				else
+				{ 
+					if (SortNums[SortNums.size() / 2 + 1] + SortNums[SortNums.size() / 4 * 3] >= target) // 51 - 75
+					{
+						if (SortNums[SortNums.size() / 2 + 1] + SortNums[SortNums.size() / 4 * 3] == target) // 51 + 75 = target
+						{
+							auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 2 + 1]);
+							auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 4 * 3]);
+							return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
+						}
+						else
+						{
+							// handle 51 - 75
+						}
+						
 
+
+					}
+					else // 76 - 100
+					{
+						if (SortNums[SortNums.size() / 4 * 3 + 1] + SortNums.size() == target) // 76 + 100 = target
+						{
+							auto IteratorFirstNum = std::find(nums.begin(), nums.end(), SortNums[SortNums.size() / 4 * 3 + 1]);
+							auto IteratorSecondNum = std::find(nums.begin(), nums.end(), SortNums.size());
+							return std::vector<int>{ (int)std::distance(nums.begin(), IteratorFirstNum), (int)std::distance(nums.begin(), IteratorSecondNum) };
+						}
+						else
+						{
+							// handle 76-100
+						}
+					}
+				}
 
 			}
 		}
-
-
-
-
 
 	}
 };
