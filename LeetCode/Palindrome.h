@@ -35,7 +35,8 @@ Follow up: Could you solve it without converting the integer to a string?
 
 */
 
-
+// slow 23 ms
+/*
 class Solution {
 public:
     bool isPalindrome(int x) {
@@ -69,6 +70,29 @@ public:
                 return false;
             }
         }
+        return true;
+    }
+};
+*/
+
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0 || x == 10)
+        {
+            return false;
+        }
+        if (x == 0)
+        {
+            return true;
+        }
+        if (x >= 1 && x <= 9)
+        {
+            return true;
+        }
+        
+        
         return true;
     }
 };
