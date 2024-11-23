@@ -34,14 +34,18 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
  
-class Solution {
+class Solution
+{
 public:
-	ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {  
+	ListNode* mergeTwoLists(ListNode* list1, ListNode* list2)
+	{  
 		ListNode* dummy = new ListNode(0);  
 		ListNode* current = dummy;  
 		
-		while (list1 != nullptr && list2 != nullptr) {  
-			if (list1->val <= list2->val) {  
+		while (list1 != nullptr && list2 != nullptr)
+		{  
+			if (list1->val <= list2->val)
+			{  
 				current->next = list1;  
 				list1 = list1->next;  
 			} else {  
@@ -60,8 +64,8 @@ public:
 		}  
 
 		return dummy->next;  
-	}  
-
+	}
+};
 
 int main()
 {
