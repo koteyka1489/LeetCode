@@ -1,114 +1,77 @@
 
+#include <algorithm>
 #include <vector>
+#include <iostream>
 
-//
-// int BinarySearch(const std::vector<int>& SortedArray, const int& Target)
-// {
-// 	int Start = 0;
-// 	int End = SortedArray.size() - 1;
-//
-// 	while (Start <= End)
-// 	{
-// 		int Mid = Start + (End - Start) / 2;
-// 		if (SortedArray[Mid] == Target) return Mid;
-//
-// 		if (SortedArray[Mid] > Target)
-// 		{
-// 			End = Mid - 1;
-// 		}
-// 		else if (SortedArray[Mid] < Target)
-// 		{
-// 			Start = Mid + 1;
-// 		}
-// 	}
-// 	
-// }
-//
-//
-//
-//
-// struct ListNode {
-//     int val;
-//     ListNode *next;
-//     ListNode() : val(0), next(nullptr) {}
-//     ListNode(int x) : val(x), next(nullptr) {}
-//     ListNode(int x, ListNode *next) : val(x), next(next) {}
-// };
-//  
-// class Solution
-// {
-// public:
-// 	ListNode* mergeTwoLists(ListNode* list1, ListNode* list2)
-// 	{  
-// 		ListNode* dummy = new ListNode(0);  
-// 		ListNode* current = dummy;  
-// 		
-// 		while (list1 != nullptr && list2 != nullptr)
-// 		{  
-// 			if (list1->val <= list2->val)
-// 			{  
-// 				current->next = list1;  
-// 				list1 = list1->next;  
-// 			} else {  
-// 				current->next = list2;  
-// 				list2 = list2->next;  
-// 			}  
-// 			current = current->next;  
-// 		}  
-// 		
-// 		if (list1 != nullptr) {  
-// 			current->next = list1;  
-// 		}  
-//         
-// 		if (list2 != nullptr) {  
-// 			current->next = list2;  
-// 		}  
-//
-// 		return dummy->next;  
-// 	}
-// };
+std::vector<int> QuickSort(std::vector<int> VectorIn)
+{
+	if (VectorIn.size() == 0) return std::vector<int>{};
+	if (VectorIn.size() == 1) return VectorIn;
 
-class Solution {
-public:
-	void merge(std::vector<int>& nums1, int m, std::vector<int>& nums2, int n) {
-		std::vector<int> Result;
-		Result.reserve(m + n);
-		int IndexM = 0;
-		int IndexN = 0;
-		while (m > IndexM  && n > IndexN)
+	if (VectorIn.size() == 2)
+	{
+		if (VectorIn[0] < VectorIn[1])
 		{
-			if (nums1[IndexM] < nums2[IndexN])
-			{
-				Result.push_back(nums1[IndexM++]);
-			}
-			else
-			{
-				Result.push_back(nums2[IndexN++]);
-			}
+			return VectorIn;
 		}
-
-		if (IndexM == m)
+		else
 		{
-			for (int i = IndexN; i < n; i++)
-			{
-				Result.push_back(nums2[i]);
-			}
+			return std::vector<int>{VectorIn[1], VectorIn[0]};
 		}
-		if (IndexN == n)
-		{
-			for (int i = IndexM; i < m; i++)
-			{
-				Result.push_back(nums1[i]);
-			}
-		}
-		nums1 = Result;
 	}
-};
+
+	int IndexAnchor = VectorIn.size() / 2;
+
+	std::vector<int> less;
+	std::vector<int> grater;
+
+	for (int i = 0; i < IndexAnchor; i++)
+	{
+		if (VectorIn[i] <= VectorIn[IndexAnchor])
+		{
+			less.push_back(VectorIn[i]);
+		}
+		else
+		{
+			grater.push_back(VectorIn[i]);
+		}
+	}
+
+	for (int i = IndexAnchor + 1; i < VectorIn.size(); i++)
+	{
+		if (VectorIn[i] <= VectorIn[IndexAnchor])
+		{
+			less.push_back(VectorIn[i]);
+		}
+		else
+		{
+			grater.push_back(VectorIn[i]);
+		}
+	}
+	
+
+	std::vector<int> Result(QuickSort(less));
+	Result.push_back(VectorIn[IndexAnchor]);
+	
+	std::vector<int> ResultGreater = QuickSort(grater);
+	Result.insert(Result.end(), ResultGreater.begin(), ResultGreater.end());
+
+	return Result;
+}
+
 
 
 int main()
 {
+	std::vector<int> Vec = { 0, 6 , 5, 8, 10 , 44, 22, 155, 14, 1, 200, 300, 33, 77, 14, 2, -1, -200, 999 };
+	
+	std::vector<int> SortVec = QuickSort(Vec);
 
+	for (auto& c : SortVec)
+	{
+		std::cout << c << "\n";
+	}
+	
 	
 
 	
